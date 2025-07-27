@@ -17,7 +17,7 @@
     }  
     /* Header */  
     .header {  
-        background-color: #000;  
+        background-color: #700;  
         display: flex;  
         justify-content: space-between;  
         align-items: center;  
@@ -52,7 +52,7 @@
     display: block; /* Show active image */  
 }  
     h2 {  
-        margin: 2px 0;  
+        margin: 20px 0;  
         font-size: 22px;  
         color: #ff0000;  
     }  
@@ -116,131 +116,21 @@
         color: white;  
         font-style: italic;  
     }  
-    .animated-nav {
-  background: linear-gradient(90deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00ab, #ff0000);
-  background-size: 1800% 1800%;
-  animation: rainbow 20s linear infinite;
-  padding: 12px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 9999;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'Oswald', sans-serif;
-  box-shadow: 0 2px 10px rgba(255, 0, 0, 0.5);
-}
-
-.nav-brand {
-  font-size: 26px;
-  font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 5px red;
-}
-
-.nav-menu {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-menu li a {
-  text-decoration: none;
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-  position: relative;
-  padding: 6px 10px;
-  transition: all 0.3s ease;
-}
-
-.nav-menu li a::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 2px;
-  width: 0%;
-  background: white;
-  transition: width 0.4s ease;
-}
-
-.nav-menu li a:hover::before {
-  width: 100%;
-}
-
-.nav-menu li a:hover {
-  color: yellow;
-  text-shadow: 0 0 5px red, 0 0 10px red;
-}
-
-@keyframes rainbow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .nav-menu {
-    flex-direction: column;
-    gap: 15px;
-    background-color: rgba(0, 0, 0, 0.9);
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-    padding: 10px 0;
-    display: none;
-  }
-
-  .nav-menu.active {
-    display: flex;
-  }
-
-  .nav-toggle {
-    display: block;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-  }
-}
-
-    
-
 </style>
 
 </head>  
 <body>
-    <nav class="animated-nav">
-  <div class="nav-brand">BANGLA BOX TV</div>
-  <ul class="nav-menu">
-    <li><a href="#home-page">HOME</a></li>
-    <li><a href="#live-events">LIVE EVENTS</a></li>
-    <li><a href="#football">FOOTBALL</a></li>
-    <li><a href="#sports-channels">SPORTS</a></li>
-  </ul>
-</nav> 
- 
-
-
-    
 <audio id="background-audio" loop>
   <source src="https://www.dropbox.com/scl/fi/qfxj5v0jjicuwk7btjglw/Champions-Trophy-2025-Song-Champions-Trophy-2025-Promo-ICC-Mens-Champions-Trophy-Pakistan-2025.mp3?rlkey=m619edudpr9keg56hnyehi2qu&st=sedvk8hx&raw=1" type="audio/mpeg">
   আপনার ব্রাউজার অডিও প্লে করতে সমর্থ নয়।
 </audio>
-
   <!-- Home Page -->  
 <div id="home-page">  
- 
-  <!-- Header -->  
+    <!-- Header -->  
 <div class="header">
-    
- 
- 
- </div> 
+  <img src="https://www.appcreator24.com/srv/imgs/gen/3667372_icohome.png?ts=1753622233" alt="Fancode">
+  <a href="javascript:void(0)" id="play-audio-btn" class="live-btn">MGFI</a>
+</div>  
     <section class="banner">  
 <div class="slider">  
     <img class="slide" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtqF8eOYffUR0h25_WqWB0mXcwwP00aoy2b1W_gMLqk7sBBNbzEP3JAXK4&s=10" alt="Live Event">  
@@ -250,21 +140,21 @@
 
 </section>  
         <section class="live-event">  
-            <h2>BANGLADESH TV</h2>  
+            <h2>Live Events</h2>  
             <div class="channels">  
-                <div class="channel" onclick="playVideo('BTV - BANGLADESH TELEVION', 'https://tse3.mm.bing.net/th/id/OIP.0wqgCXG0lY_BH00lh6geNwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3', 'https://tvsen6.aynaott.com/btvhd/tracks-v1a1/mono.ts.m3u8')">  
-                    <img src="https://tse3.mm.bing.net/th/id/OIP.0wqgCXG0lY_BH00lh6geNwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Ten Cricket">  
+                <div class="channel" onclick="playVideo('IPL - INDIAN PREMIER LEAUGUE LIVE', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSehL8bTihIPqKzYMqNtITAFyPx8yrGqsl6mc-uewdnETFU4k7wOTNPLds&s=10', 'https://starshare.org:443/live/134134/134134/148.m3u8')">  
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSehL8bTihIPqKzYMqNtITAFyPx8yrGqsl6mc-uewdnETFU4k7wOTNPLds&s=10" alt="Ten Cricket">  
                 </div>  
-                <div class="channel" onclick="playVideo('BTV NEWS - BANGLADESH TELEVISON NEWS', 'https://tse1.mm.bing.net/th/id/OIP.BWFtO9bWDvImChw3_fX5TwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3', 'https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/btvbd-office-sg.stream/tracks-v1a1/mono.m3u8')">  
-                    <img src="https://tse1.mm.bing.net/th/id/OIP.BWFtO9bWDvImChw3_fX5TwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Ten Cricket">  
+                <div class="channel" onclick="playVideo('5T20i - PAK VS NZ LIVE', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD_aLlLdrYHWfaFwkJyMm1Iy2oYVywyUNjwtIOANlQsuA7PTSzk9LsEHA&s=10', 'https://dai.google.com/linear/hls/event/lfAZV-RhTC6wIvRGDpSzoA/master.m3u8')">  
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD_aLlLdrYHWfaFwkJyMm1Iy2oYVywyUNjwtIOANlQsuA7PTSzk9LsEHA&s=10" alt="Ten Cricket">  
                 </div>  
-                <div class="channel" onclick="playVideo('BTV CTG - BANGLADESH CTG TV', 'https://tse1.mm.bing.net/th/id/OIP.cHSsfYUKgRBL4XtBHeEhjwHaGT?r=0&rs=1&pid=ImgDetMain&o=7&rm=3', 'https://tvsen6.aynaott.com/btvctg/tracks-v1a1/mono.ts.m3u8')">  
-                <img src="https://tse1.mm.bing.net/th/id/OIP.cHSsfYUKgRBL4XtBHeEhjwHaGT?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Ten Cricket">  
+                <div class="channel" onclick="playVideo('DPL - DHAKA PRIMIER LEAUGE LIVE', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXk5UaKvs09npu8hspN8CPjjbbMEGkZRXmzzNPXbjQsDwGPpk0eBECWaA&s=10', 'https://starshare.org:443/live/2222/3333/388668.m3u8')">  
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXk5UaKvs09npu8hspN8CPjjbbMEGkZRXmzzNPXbjQsDwGPpk0eBECWaA&s=10" alt="Ten Cricket">  
                 </div>  
             </div>  
         </section>
 <section class="live-event">  
-            <h2>KOLKATA TV</h2>  
+            <h2>Football Live</h2>  
             <div class="channels">  
                 <div class="channel" onclick="playVideo('World Cup Qualifiers›', 'https://imgs.ticombo.com/tc-images-main/origin/events/sports/peru-vs-bolivia-conmebol-world-cup-2026-qualifiers/thumbnail-a12bc051-f4b9-410a-88ed-cb3664e0776a.png', 'http://161.248.188.101/T_sports/tracks-v1a1/mono.ts.m3u8')">  
                     <img src="https://imgs.ticombo.com/tc-images-main/origin/events/sports/peru-vs-bolivia-conmebol-world-cup-2026-qualifiers/thumbnail-a12bc051-f4b9-410a-88ed-cb3664e0776a.png" alt="Ten Cricket">  
@@ -278,7 +168,7 @@
             </div>  
         </section>
 <section class="sports-channels">  
-        <h2>INDIA TV</h2>  
+        <h2>Bangladeshi</h2>  
         <div class="channels">  
             <div class="channel" onclick="playVideo('T SPORTS HD', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-tUYSKktL5jkBG-JUL-RsDBExzgUhnzmBuyVL6SuzraRjvPhYPmsMEWlL&s=10', 'https://live.tsports.com/mobile_hls/tsports_live_2/playlist.m3u8')">  
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-tUYSKktL5jkBG-JUL-RsDBExzgUhnzmBuyVL6SuzraRjvPhYPmsMEWlL&s=10" alt="Sony Sports 2 HD">  
@@ -309,7 +199,8 @@
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9uV5HP06ai5gkDM7iCztP4TCac4VL8xZQnNaXv5Op0A&s" alt="Sony Sports 2 HD">  
                 </div>  
             </div>  
-        </section>  
+        </section> 
+      
     </div>  <!-- Video Player Page -->  
 <div id="video-page">  
     <div class="video-container">  
@@ -319,10 +210,56 @@
     </div>  
     <div id="channel-info">  
         <img id="channel-img" src="" alt="Channel Logo">  
-        <h2 id="now-playing">Now Playing : </h2>  
+        <h2 id="now-playing">Now Playing: </h2>  
     </div>  
-    <p class="info-text">Enjoy Bangla Box Website... </p>  
-</div>  
+    <p class="info-text">Enjoy uninterrupted live sports streaming!</p>  
+</div>
+
+  <!-- FOOTER -->
+<footer style="background: #000; color: #fff; padding: 40px 20px 20px; font-family: sans-serif;">
+  <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 30px;">
+
+    <!-- Left: Logo and About -->
+    <div style="flex: 1 1 250px;">
+      <h2 style="font-size: 24px; color: #fff; margin-bottom: 10px;">Bangla Box TV</h2>
+      <p style="font-size: 14px; line-height: 1.6; color: #ccc;">
+        Watch Bangladeshi Live TV in one app and 1 website. Enjoy smooth playback and beautiful design with remote control support.
+      </p>
+    </div>
+
+    <!-- Middle: Download App -->
+    <div style="flex: 1 1 250px;">
+      <h3 style="font-size: 18px; margin-bottom: 10px; color: #fff;">Download Our App</h3>
+      <a href="https://play.google.com/store" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/512px-Google_Play_Store_badge_EN.svg.png" 
+             alt="Download on Play Store" 
+             style="width: 160px; height: auto; border-radius: 8px;">
+      </a>
+    </div>
+
+    <!-- Right: Contact and Social -->
+    <div style="flex: 1 1 250px;">
+      <h3 style="font-size: 18px; margin-bottom: 10px; color: #fff;">📞 Contact Us</h3>
+      <p style="font-size: 14px; color: #ccc; margin: 5px 0;">Email : Banglaboxtvhelp@gmail.com</p>
+      <p style="font-size: 14px; color: #ccc; margin: 5px 0;">Phone : +88928736353</p>
+      <div style="margin-top: 10px;">
+        <a href="#" style="color: #ccc; margin-right: 15px;"><i class="fab fa-facebook fa-lg"></i></a>
+        <a href="#" style="color: #ccc; margin-right: 15px;"><i class="fab fa-youtube fa-lg"></i></a>
+        <a href="#" style="color: #ccc;"><i class="fab fa-telegram fa-lg"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <hr style="margin: 30px 0; border-color: #333;" />
+
+  <div style="text-align: center; color: #99; font-size: 13px;">
+    © 2025 Bangla Box TV. All Rights Reserved.
+  </div>
+</footer>
+
+<!-- Font Awesome CDN (for social icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
 <div id="ad-container"></div>
 <script type="text/javascript">
   atOptions = {
@@ -332,6 +269,8 @@
     'width': 160,
     'params': {}
   };
+  </div>  
+
 </script>
 <script type="text/javascript" src=""></script>
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>  
