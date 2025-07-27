@@ -1,0 +1,422 @@
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Fredflix - Live Sports</title>  
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">  
+    <style>  
+        /* Google Font */  
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap');  /* General Styles */  
+    body {  
+        margin: 0;  
+        font-family: 'Oswald', sans-serif;  
+        background: #0f0f0f;  
+        color: white;  
+        text-align: center;  
+    }  
+    /* Header */  
+    .header {  
+        background-color: #000;  
+        display: flex;  
+        justify-content: space-between;  
+        align-items: center;  
+        padding: 14px 20px;  
+        position: sticky;  
+        top: 0;  
+        z-index: 100;  
+    }  
+    .header img {  
+        max-width: 150px;  
+    }
+#play-audio-btn {
+    font-size: 40px; /* আইকনটির আকার বড় করার জন্য */
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}  
+    .slider {  
+    position: relative;  
+    width: 100%;  
+    height: auto;  
+    overflow: hidden;  
+}  
+
+.slide {  
+    width: 100%;  
+    height: auto;  
+    display: none; /* Hide images initially */  
+}  
+
+.active {  
+    display: block; /* Show active image */  
+}  
+    h2 {  
+        margin: 2px 0;  
+        font-size: 22px;  
+        color: #ff0000;  
+    }  
+    .channels {  
+        display: flex;  
+        justify-content: center;  
+        gap: 15px;  
+        flex-wrap: wrap;  
+        padding: 12px;  
+    }  
+    .channel img {  
+        width: 100px;  
+        height: 100px;  
+        border-radius: 80%;  
+        border: 3px solid #ff0000;  
+        cursor: pointer;  
+        transition: 0.3s;  
+    }  
+    .channel img:hover {  
+        transform: scale(1.1);  
+    }  
+
+    /* Video Page */  
+    #video-page {  
+        display: none;  
+        text-align: center;  
+        background: black;  
+        padding-bottom: 20px;  
+        margin-top: 50px;  
+    }  
+    .video-container {  
+        width: 100%;  
+        margin: auto;  
+        margin-top: 50px;  
+    }  
+    video {  
+        width: 100%;  
+        border-radius: 10px;  
+        border: 1px solid #ff0000;  
+    }  
+    #channel-info {  
+        margin-top: 20px;  
+    }  
+    #channel-info img {  
+        width: 100px;  
+        height: 100px;  
+        border-radius: 50%;  
+        border: 3px solid white;  
+    }  
+    #now-playing {  
+    font-size: 22px;  
+    margin-top: 10px;  
+    color: #ff0000;  
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}  
+    .info-text {  
+        margin-top: 20px;  
+        font-size: 18px;  
+        color: white;  
+        font-style: italic;  
+    }  
+    .animated-nav {
+  background: linear-gradient(90deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00ab, #ff0000);
+  background-size: 1800% 1800%;
+  animation: rainbow 20s linear infinite;
+  padding: 12px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Oswald', sans-serif;
+  box-shadow: 0 2px 10px rgba(255, 0, 0, 0.5);
+}
+
+.nav-brand {
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 5px red;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+  padding: 6px 10px;
+  transition: all 0.3s ease;
+}
+
+.nav-menu li a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background: white;
+  transition: width 0.4s ease;
+}
+
+.nav-menu li a:hover::before {
+  width: 100%;
+}
+
+.nav-menu li a:hover {
+  color: yellow;
+  text-shadow: 0 0 5px red, 0 0 10px red;
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .nav-menu {
+    flex-direction: column;
+    gap: 15px;
+    background-color: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    display: none;
+  }
+
+  .nav-menu.active {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: block;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}
+
+    
+
+</style>
+
+</head>  
+<body>
+    <nav class="animated-nav">
+  <div class="nav-brand">BANGLA BOX TV</div>
+  <ul class="nav-menu">
+    <li><a href="#home-page">HOME</a></li>
+    <li><a href="#live-events">LIVE EVENTS</a></li>
+    <li><a href="#football">FOOTBALL</a></li>
+    <li><a href="#sports-channels">SPORTS</a></li>
+  </ul>
+</nav> 
+ 
+
+
+    
+<audio id="background-audio" loop>
+  <source src="https://www.dropbox.com/scl/fi/qfxj5v0jjicuwk7btjglw/Champions-Trophy-2025-Song-Champions-Trophy-2025-Promo-ICC-Mens-Champions-Trophy-Pakistan-2025.mp3?rlkey=m619edudpr9keg56hnyehi2qu&st=sedvk8hx&raw=1" type="audio/mpeg">
+  আপনার ব্রাউজার অডিও প্লে করতে সমর্থ নয়।
+</audio>
+
+  <!-- Home Page -->  
+<div id="home-page">  
+ 
+  <!-- Header -->  
+<div class="header">
+    
+ 
+ 
+ </div> 
+    <section class="banner">  
+<div class="slider">  
+    <img class="slide" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtqF8eOYffUR0h25_WqWB0mXcwwP00aoy2b1W_gMLqk7sBBNbzEP3JAXK4&s=10" alt="Live Event">  
+    <img class="slide" src="https://img.youtube.com/vi/TTVvdFOS420/maxresdefault.jpg" alt="Live Event 2">  
+    <img class="slide" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0XKVAlqJb8vxPMmFfRTqPdyyhUIZdzUdsJfLTQ86ceM4PZoo_6f7KQ1g&s=10" alt="Live Event 3">  
+</div>
+
+</section>  
+        <section class="live-event">  
+            <h2>BANGLADESH TV</h2>  
+            <div class="channels">  
+                <div class="channel" onclick="playVideo('BTV - BANGLADESH TELEVION', 'https://tse3.mm.bing.net/th/id/OIP.0wqgCXG0lY_BH00lh6geNwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3', 'https://tvsen6.aynaott.com/btvhd/tracks-v1a1/mono.ts.m3u8')">  
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.0wqgCXG0lY_BH00lh6geNwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Ten Cricket">  
+                </div>  
+                <div class="channel" onclick="playVideo('BTV NEWS - BANGLADESH TELEVISON NEWS', 'https://tse1.mm.bing.net/th/id/OIP.BWFtO9bWDvImChw3_fX5TwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3', 'https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDDEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFsaWRtaW51aiPhnPTI2/btvbd-office-sg.stream/tracks-v1a1/mono.m3u8')">  
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.BWFtO9bWDvImChw3_fX5TwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Ten Cricket">  
+                </div>  
+                <div class="channel" onclick="playVideo('BTV CTG - BANGLADESH CTG TV', 'https://tse1.mm.bing.net/th/id/OIP.cHSsfYUKgRBL4XtBHeEhjwHaGT?r=0&rs=1&pid=ImgDetMain&o=7&rm=3', 'https://tvsen6.aynaott.com/btvctg/tracks-v1a1/mono.ts.m3u8')">  
+                <img src="https://tse1.mm.bing.net/th/id/OIP.cHSsfYUKgRBL4XtBHeEhjwHaGT?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Ten Cricket">  
+                </div>  
+            </div>  
+        </section>
+<section class="live-event">  
+            <h2>KOLKATA TV</h2>  
+            <div class="channels">  
+                <div class="channel" onclick="playVideo('World Cup Qualifiers›', 'https://imgs.ticombo.com/tc-images-main/origin/events/sports/peru-vs-bolivia-conmebol-world-cup-2026-qualifiers/thumbnail-a12bc051-f4b9-410a-88ed-cb3664e0776a.png', 'http://161.248.188.101/T_sports/tracks-v1a1/mono.ts.m3u8')">  
+                    <img src="https://imgs.ticombo.com/tc-images-main/origin/events/sports/peru-vs-bolivia-conmebol-world-cup-2026-qualifiers/thumbnail-a12bc051-f4b9-410a-88ed-cb3664e0776a.png" alt="Ten Cricket">  
+                </div>  
+                <div class="channel" onclick="playVideo('UEFA NATIONS LEAUGE', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP9Vho4HdmrZwhJveQLtKE3WGjZ6WA97273B6oxOqiLsTO2_iP380iFeth&s=10', 'https://live.tsports.com/mobile_hls/tsports_live_2/playlist.m3u8')">  
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP9Vho4HdmrZwhJveQLtKE3WGjZ6WA97273B6oxOqiLsTO2_iP380iFeth&s=10" alt="Ten Cricket">  
+                </div>  
+                <div class="channel" onclick="playVideo('FiFA WC Qualifier 2026', 'https://digitalhub.fifa.com/transform/140b1616-1a73-4faa-9980-acf4e8d54d58/FWC-2026_Qualifiers_Thumbail', 'http://link.luckonline.eu/live/0c:89:10:e8:1c:d4/869/505.m3u8')">  
+                    <img src="https://digitalhub.fifa.com/transform/140b1616-1a73-4faa-9980-acf4e8d54d58/FWC-2026_Qualifiers_Thumbail" alt="Ten Cricket">  
+                </div>  
+            </div>  
+        </section>
+<section class="sports-channels">  
+        <h2>INDIA TV</h2>  
+        <div class="channels">  
+            <div class="channel" onclick="playVideo('T SPORTS HD', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-tUYSKktL5jkBG-JUL-RsDBExzgUhnzmBuyVL6SuzraRjvPhYPmsMEWlL&s=10', 'https://live.tsports.com/mobile_hls/tsports_live_2/playlist.m3u8')">  
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-tUYSKktL5jkBG-JUL-RsDBExzgUhnzmBuyVL6SuzraRjvPhYPmsMEWlL&s=10" alt="Sony Sports 2 HD">  
+            </div>  
+            <div class="channel" onclick="playVideo('GTV HD', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpKfGxlwWyxuYVxCW92ygs-7FOXh0K80U9I-tIczEYo12TOOS4HAAhGA6q&s=10', 'http://bd.bdix.xyz:8880/live/789865437/789865437/1296.m3u8')">  
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpKfGxlwWyxuYVxCW92ygs-7FOXh0K80U9I-tIczEYo12TOOS4HAAhGA6q&s=10" alt="Sony Sports 5 HD">  
+            </div>
+
+<div class="channel" onclick="playVideo('Astro Cricket', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdXvbo6EtpHQ-Saub62iGoiEgSmDNFe_rniQ&usqp=CAU', 'https://maxplay-tv.fun/tff.php/init-370.m3u8')">  
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdXvbo6EtpHQ-Saub62iGoiEgSmDNFe_rniQ&usqp=CAU" alt="Sony Sports 2 HD">  
+                </div>  
+<div class="channel" onclick="playVideo('Fox Sports', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEMFB_oUDQhKU0Kv7hrMDJeqRAISbDgFgWiz1Irqe0RYCfnkza_9NekUE&s=10', 'https://maxplay-tv.fun/tff.php/init-369.m3u8')">  
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEMFB_oUDQhKU0Kv7hrMDJeqRAISbDgFgWiz1Irqe0RYCfnkza_9NekUE&s=10" alt="Sony Sports 2 HD">  
+                </div>  
+                <div class="channel" onclick="playVideo('Ten Cricket', 'https://i.ibb.co.com/kp7q8dW/mobile-logo-578686001735197654.png', 'https://edge3-moblive.yuppcdn.net/drm/smil:tencricketdrm.smil/manifest.mpd?%7CdrmScheme=clearkey&drmLicense=9872e439f21f4a299cab249c6554daa3:0cdfcfe0d0f1fbe100554ce3ef4c4665')">  
+                    <img src="https://i.ibb.co.com/kp7q8dW/mobile-logo-578686001735197654.png" alt="T Sports">  
+                </div>  
+<div class="channel" onclick="playVideo('Sony Sports', 'https://i.ibb.co.com/Ndj4SXLn/mobile-logo-237244001666780563.png', 'https://dai.google.com/ssai/event/b4syULaIS9uJBor6MB0Gcg/master.m3u8')">  
+                    <img src="https://i.ibb.co.com/Ndj4SXLn/mobile-logo-237244001666780563.png" alt="Sony Sports 2 HD">  
+                </div>  
+<div class="channel" onclick="playVideo('Willow Sports', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOU-ER2SjL3WhT9dFZRvykXkCgtcmJudAoNg&usqp=CAU', 'https://maxplay-tv.fun/tf.php/premium346/mono.m3u8')">  
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOU-ER2SjL3WhT9dFZRvykXkCgtcmJudAoNg&usqp=CAU" alt="Sony Sports 2 HD">  
+                </div>  
+<div class="channel" onclick="playVideo('Sky Sports', 'https://images.seeklogo.com/logo-png/19/2/sky-sports-logo-png_seeklogo-198328.png', 'https://example.com/sony2.m3u8')">  
+                    <img src="https://images.seeklogo.com/logo-png/19/2/sky-sports-logo-png_seeklogo-198328.png" alt="Sony Sports 2 HD">  
+                </div>
+<div class="channel" onclick="playVideo('Sky Sports', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9uV5HP06ai5gkDM7iCztP4TCac4VL8xZQnNaXv5Op0A&s', 'https://newhub247.store/themes/NVMe/live.m3u8?id=2853')">  
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9uV5HP06ai5gkDM7iCztP4TCac4VL8xZQnNaXv5Op0A&s" alt="Sony Sports 2 HD">  
+                </div>  
+            </div>  
+        </section>  
+    </div>  <!-- Video Player Page -->  
+<div id="video-page">  
+    <div class="video-container">  
+        <video id="player" controls autoplay playsinline>  
+            <source id="video-source" src="" type="application/x-mpegURL">  
+        </video>  
+    </div>  
+    <div id="channel-info">  
+        <img id="channel-img" src="" alt="Channel Logo">  
+        <h2 id="now-playing">Now Playing : </h2>  
+    </div>  
+    <p class="info-text">Enjoy Bangla Box Website... </p>  
+</div>  
+<div id="ad-container"></div>
+<script type="text/javascript">
+  atOptions = {
+    'key': 'b4c447cc76f7b509e001f3f8ff846607',
+    'format': 'iframe',
+    'height': 300,
+    'width': 160,
+    'params': {}
+  };
+</script>
+<script type="text/javascript" src=""></script>
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>  
+<script>  
+    const player = new Plyr('#player');  
+
+    function playVideo(channelName, imgSrc, videoSrc) {    
+document.getElementById("home-page").style.display = "none";    
+document.getElementById("video-page").style.display = "block";    
+
+const video = document.getElementById("player");  
+const source = document.getElementById("video-source");  
+
+if (Hls.isSupported()) {    
+    const hls = new Hls();    
+    hls.loadSource(videoSrc);    
+    hls.attachMedia(video);    
+    hls.on(Hls.Events.MANIFEST_PARSED, function() {    
+        video.play();    
+    });    
+} else if (video.canPlayType('application/vnd.apple.mpegurl')) {    
+    video.src = videoSrc;    
+    video.addEventListener('loadedmetadata', function() {    
+        video.play();    
+    });    
+}    
+
+document.getElementById("channel-img").src = imgSrc;    
+document.getElementById("now-playing").innerText = "Now Playing: " + channelName;    
+
+if (window.innerWidth > 768) {    
+    video.requestFullscreen();    
+}  
+
+history.pushState({ page: channelName }, channelName, `#${channelName}`);
+
+}
+
+function goHome() {
+document.getElementById("video-page").style.display = "none";
+document.getElementById("home-page").style.display = "block";
+
+// Update history to show home page state  
+history.replaceState({ page: 'home' }, 'Home', '#home');
+
+}
+
+window.addEventListener("popstate", function(event) {
+if (event.state && event.state.page === 'home') {
+goHome();
+} else {
+// Add behavior for when you are on a channel page
+document.getElementById("home-page").style.display = "none";
+document.getElementById("video-page").style.display = "block";
+}
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+history.pushState({ page: 'home' }, 'Home', '#home');
+});
+let currentIndex = 0;
+const slides = document.querySelectorAll('.slide');
+
+function showNextSlide() {  
+    slides[currentIndex].classList.remove('active');  
+    currentIndex = (currentIndex + 1) % slides.length;  
+    slides[currentIndex].classList.add('active');  
+}  
+
+// Initial display  
+slides[currentIndex].classList.add('active');  
+
+// Change slide every 3 seconds  
+setInterval(showNextSlide, 3000);  
+document.getElementById("play-audio-btn").addEventListener("click", function() {
+    var audio = document.getElementById("background-audio");
+
+    // চেক করুন যদি অডিও চলছে তবে বন্ধ করুন, নতুবা চালু করুন
+    if (audio.paused) {
+        audio.play();  // অডিও চালু হবে
+    } else {
+        audio.pause();  // অডিও বন্ধ হবে
+    }
+});
+</script>
+
+</body>  
+</html>
